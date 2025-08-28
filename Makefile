@@ -6,7 +6,7 @@ run:
 
 # Build the binary
 build:
-	go build -o go-starter main.go
+	go build -o chat-app main.go
 
 # Run tests
 test:

@@ -1,45 +1,29 @@
-# go-starter
+# Chat App
 
-A minimal Go starter repository with VSCode configuration, linting, testing, a Makefile for custom commands, and pre-push hooks.
+A simple Go-based chat application.
 
 ## Prerequisites
 
 - Go 1.20+
-- [golangci-lint](https://golangci-lint.run)
-- Make
-- VSCode with the Go extension installed (pre-release version is required to support golangci-lint v2)
 
 ## Setup
 
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/iluhanec/go-starter.git
-   cd go-starter
+   git clone https://github.com/yourusername/chat-app.git
+   cd chat-app
    ```
 
-2. Configure Git hooks:
+2. Install dependencies:
 
    ```sh
-   git config core.hooksPath .githooks
+   go mod tidy
    ```
 
-3. Ensure the pre-push hook is executable:
+## Running & Building
 
-   ```sh
-   chmod +x .githooks/pre-push
-   ```
-
-4. Open in VSCode:
-   ```sh
-   code .
-   ```
-
-VSCode will automatically format and organize imports on save.
-
-## Running & Custom Commands
-
-This repo uses a **Makefile** to define common tasks, similar to `package.json` scripts in Node.js.
+This repo uses a **Makefile** for common tasks:
 
 | Command      | Description         |
 | ------------ | ------------------- |
@@ -48,25 +32,22 @@ This repo uses a **Makefile** to define common tasks, similar to `package.json` 
 | `make test`  | Execute all tests   |
 | `make lint`  | Run code linter     |
 
-Example:
+### Quick Start
 
 ```sh
 make run
 ```
 
-## Building a Binary
-
-You can compile your application into a standalone executable:
+### Build Binary
 
 ```sh
 make build
-./go-starter
+./chat-app
 ```
 
 Or directly with Go:
 
 ```sh
-go build -o go-starter main.go
-./go-starter
-
+go build -o chat-app main.go
+./chat-app
 ```

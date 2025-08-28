@@ -1,1 +1,1 @@
-module go-starter
+module chat-app

@@ -1,4 +1,4 @@
-.PHONY: run build test lint
+.PHONY: run build test lint clean docker-build docker-run format format-check
 
 # Run the application
 run:
@@ -10,8 +10,29 @@ build:
 
 # Run tests
 test:
-	go test ./...
+	go test -v ./...
 
-# Run linter
+# Format code
+format:
+	goimports -w .
+
+# Check formatting without changes
+format-check:
+	goimports -d .
+
+# Lint code
 lint:
 	golangci-lint run
+
+# Clean build artifacts
+clean:
+	rm -f chat-app
+	go clean
+
+# Build Docker image
+docker-build:
+	docker build -t chat-app .
+
+# Run Docker container
+docker-run:
+	docker run -p 8080:8080 chat-app

@@ -2,3 +2,24 @@ version: "2"
 
 run:
   timeout: 5m
+  go: "1.24"
+
+linters:
+  enable:
+    - govet
+    - errcheck
+    - staticcheck
+    - ineffassign
+    - unused
+    - misspell
+    - gosec
+
+linters-settings:
+  goimports:
+    local-prefixes: chat-app
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - errcheck

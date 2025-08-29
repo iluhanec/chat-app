@@ -38,15 +38,15 @@ A simple Go-based chat application.
 
 This repo uses a **Makefile** for common tasks:
 
-| Command           | Description                    |
-| ----------------- | ------------------------------ |
-| `make run`        | Run the application            |
-| `make build`      | Compile the binary             |
-| `make test`       | Execute all tests              |
-| `make lint`       | Run code linter                |
-| `make clean`      | Clean build artifacts          |
-| `make docker-build` | Build Docker image            |
-| `make docker-run` | Run Docker container          |
+| Command             | Description           |
+| ------------------- | --------------------- |
+| `make run`          | Run the application   |
+| `make build`        | Compile the binary    |
+| `make test`         | Execute all tests     |
+| `make lint`         | Run code linter       |
+| `make clean`        | Clean build artifacts |
+| `make docker-build` | Build Docker image    |
+| `make docker-run`   | Run Docker container  |
 
 ### Quick Start
 

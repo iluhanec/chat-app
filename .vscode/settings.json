@@ -16,5 +16,9 @@
     "fmt",
     "--stdin"
   ],
-  "makefile.configureOnOpen": false
+  "makefile.configureOnOpen": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "files.eol": "\n"
 }

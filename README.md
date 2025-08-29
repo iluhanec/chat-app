@@ -1,78 +1,161 @@
 # Chat App
 
-A simple Go-based chat application.
+A minimalistic chat application with HTTP REST API server and console client.
+
+## Features
+
+- **Chat Server**: HTTP REST API for chat operations
+- **Console Client**: Interactive terminal-based chat client
+- **Multiple Chat Rooms**: Create and join different chat rooms
+- **Chat History**: View all messages when joining a chat
+- **Cross-Platform**: Client binaries for Linux, macOS, and Windows
+- **Dockerized Server**: Easy deployment with Docker
+
+## Architecture
+
+```
+chat-app/
+├── cmd/
+│   ├── server/        # HTTP server application
+│   └── client/        # Console client application
+├── internal/
+│   ├── models/        # Data models
+│   └── storage/       # In-memory storage
+└── bin/               # Compiled binaries
+```
 
 ## Prerequisites
 
-- Go 1.24+
-- Docker (optional)
+- Go 1.21+
+- Docker (optional, for containerized server)
 
-## Setup
+## Quick Start
 
-1. Clone the repository:
+### Using Docker (Recommended)
 
+1. Start the server:
    ```sh
-   git clone https://github.com/yourusername/chat-app.git
-   cd chat-app
+   make demo
    ```
 
-2. Install dependencies:
-
+2. In another terminal, connect with the client:
    ```sh
-   go mod tidy
+   make run-client
    ```
 
-3. Install golangci-lint (for development):
+### Manual Setup
 
+1. Start the server:
    ```sh
-   go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+   make run-server
    ```
 
-4. Install goimports (for code formatting):
-
+2. In another terminal, connect with the client:
    ```sh
-   go install golang.org/x/tools/cmd/goimports@latest
+   go run cmd/client/main.go --username="YourName"
    ```
 
-## Running & Building
+## Client Commands
 
-This repo uses a **Makefile** for common tasks:
+Once connected, use these commands:
+- `/list` - List all available chats
+- `/create NAME` - Create a new chat room
+- `/join ID` - Join an existing chat by ID
+- `/refresh` - Refresh messages in current chat
+- `/quit` - Exit the application
 
-| Command             | Description           |
-| ------------------- | --------------------- |
-| `make run`          | Run the application   |
-| `make build`        | Compile the binary    |
-| `make test`         | Execute all tests     |
-| `make lint`         | Run code linter       |
-| `make clean`        | Clean build artifacts |
-| `make docker-build` | Build Docker image    |
-| `make docker-run`   | Run Docker container  |
+Any text without a `/` prefix will be sent as a message to the current chat.
 
-### Quick Start
+## Building
+
+### Build Everything
 
 ```sh
-make run
+make build-all
 ```
 
-### Build Binary
+This creates binaries for:
+- Server: `bin/chat-server`
+- Client:
+  - Linux: `bin/chat-client-linux-amd64`
+  - macOS Intel: `bin/chat-client-darwin-amd64`
+  - macOS Apple Silicon: `bin/chat-client-darwin-arm64`
+  - Windows: `bin/chat-client-windows-amd64.exe`
+
+### Build Specific Components
 
 ```sh
-make build
-./chat-app
+make build-server     # Build server only
+make build-client     # Build client for current platform
 ```
 
-### Docker
+## API Endpoints
+
+The server exposes the following REST API:
+
+- `GET /api/chats` - List all chats
+- `POST /api/chats` - Create a new chat
+- `GET /api/chats/{chatID}/messages` - Get messages for a chat
+- `POST /api/chats/{chatID}/messages` - Send a message to a chat
+
+## Testing
+
+Run comprehensive tests:
 
 ```sh
-make docker-build
-make docker-run
+make test
 ```
 
 ## Development
 
-- `main.go` - Application entry point
-- `main_test.go` - Test suite
-- `Makefile` - Build and development commands
-- `.golangci.yml` - Linting configuration
-- `Dockerfile` - Container configuration
-- `.github/workflows/ci.yml` - CI/CD pipeline
+### Available Make Commands
+
+| Command             | Description                     |
+| ------------------- | ------------------------------- |
+| `make run-server`   | Run the server locally          |
+| `make run-client`   | Run the client locally          |
+| `make build-all`    | Build all platform binaries     |
+| `make test`         | Run all tests                   |
+| `make format`       | Format code with goimports      |
+| `make lint`         | Run golangci-lint               |
+| `make docker-build` | Build Docker image              |
+| `make docker-run`   | Run server in Docker            |
+| `make demo`         | Start server in Docker for demo |
+| `make clean`        | Clean build artifacts           |
+
+### Project Structure
+
+- `cmd/server/` - HTTP server implementation
+- `cmd/client/` - Console client implementation
+- `internal/models/` - Shared data structures
+- `internal/storage/` - In-memory storage layer
+
+## Example Usage
+
+1. Start the server:
+   ```sh
+   make docker-run
+   ```
+
+2. Connect first user:
+   ```sh
+   ./bin/chat-client --username="Alice"
+   > /create General
+   > /join <chat-id>
+   > Hello everyone!
+   ```
+
+3. Connect second user:
+   ```sh
+   ./bin/chat-client --username="Bob"
+   > /list
+   > /join <chat-id>
+   > Hi Alice!
+   ```
+
+## Notes
+
+- No authentication/authorization (as per requirements)
+- Messages are stored in-memory (lost on server restart)
+- Server runs on port 8080 by default
+- Client connects to http://localhost:8080 by default

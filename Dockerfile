@@ -1,17 +1,18 @@
 # Build stage
-FROM golang:1.24-alpine AS builder
+FROM golang:1.21-alpine AS builder
 
 WORKDIR /app
-COPY go.mod ./
+COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o chat-app .
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o chat-server ./cmd/server
 
 # Final stage
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
 
-COPY --from=builder /app/chat-app .
-CMD ["./chat-app"]
+COPY --from=builder /app/chat-server .
+EXPOSE 8080
+CMD ["./chat-server"]

@@ -3,8 +3,22 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
   },
-  "go.formatTool": "goimports",
   "go.lintTool": "golangci-lint",
-  "go.useLanguageServer": true,
-  "makefile.configureOnOpen": false
+  "go.lintFlags": [
+    "--path-mode=abs",
+    "--fast-only"
+  ],
+  "go.formatTool": "custom",
+  "go.alternateTools": {
+    "customFormatter": "golangci-lint"
+  },
+  "go.formatFlags": [
+    "fmt",
+    "--stdin"
+  ],
+  "makefile.configureOnOpen": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "files.eol": "\n"
 }

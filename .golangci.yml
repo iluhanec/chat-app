@@ -14,12 +14,10 @@ linters:
     - misspell
     - gosec
 
-linters-settings:
-  goimports:
-    local-prefixes: chat-app
-
-issues:
-  exclude-rules:
-    - path: _test\.go
-      linters:
-        - errcheck
+output:
+  formats:
+    text:
+      path: stdout
+      colors: true
+      print-issued-lines: true
+      print-linter-name: true

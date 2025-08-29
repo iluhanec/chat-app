@@ -58,7 +58,6 @@ chat-app/
 ## Client Commands
 
 Once connected, use these commands:
-
 - `/list` - List all available chats
 - `/create NAME` - Create a new chat room
 - `/join ID` - Join an existing chat by ID
